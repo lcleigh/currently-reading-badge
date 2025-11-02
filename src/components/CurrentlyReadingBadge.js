@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function CurrentlyReadingBadge({ bookTitle = "The BFG" }) {
+export default function CurrentlyReadingBadge({ bookTitle }) {
   const [bookData, setBookData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
