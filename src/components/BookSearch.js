@@ -21,7 +21,7 @@ export default function BookSearch({ onSearch }) {
         type="text"
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
         placeholder="Search for a book..."
       />
       <button onClick={handleSearch}>
