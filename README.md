@@ -1,4 +1,4 @@
-# 📚 Currently Reading Badge
+# 📚 Currently Reading Badge WOO
 
 > A cute little badge to show off what book you're reading on your GitHub profile! ✨
 
