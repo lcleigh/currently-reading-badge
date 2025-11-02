@@ -44,6 +44,15 @@ npm test
 npm test -- --coverage
 ```
 
+### ✨ Continuous Integration
+
+This project uses GitHub Actions to automatically run tests on every pull request! Just open a PR and watch the magic happen 🪄
+
+The CI workflow will:
+- Run all tests
+- Generate coverage reports
+- Give you that satisfying green checkmark ✅
+
 ## 📁 Project Structure
 
 ```
