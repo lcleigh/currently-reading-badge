@@ -8,6 +8,7 @@ function App() {
     <div style={{ padding: "20px" }}>
       <h1>My Reading Tracker</h1>
       <BookSearch onSearch={setBookTitle}/>
+      <br />
       <CurrentlyReadingBadge bookTitle={bookTitle}/>
     </div>
   );

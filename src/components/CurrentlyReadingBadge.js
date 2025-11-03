@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { themes } from "../themes/badgeColourThemes";
 
 export default function CurrentlyReadingBadge({ bookTitle }) {
   const [bookData, setBookData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const currentColourTheme = themes.neutral;
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -38,16 +41,69 @@ export default function CurrentlyReadingBadge({ bookTitle }) {
     }
   }, [bookTitle]);
 
+  const badgeStyle = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '12px',
+    padding: '12px 16px',
+    backgroundColor: currentColourTheme.background,
+    border: `2px solid ${currentColourTheme.border}`,
+    borderRadius: '8px',
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    maxWidth: '400px'
+  };
+
+  const coverStyle = {
+    width: '50px',
+    height: 'auto',
+    borderRadius: '4px',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+  };
+
+  const textContainerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px'
+  };
+
+  const mainTextStyle = {
+    color: currentColourTheme.text,
+    fontSize: '14px',
+    fontWeight: '600',
+    margin: 0,
+    lineHeight: '1.4'
+  };
+
+  const subtextStyle = {
+    color: currentColourTheme.subtext,
+    fontSize: '12px',
+    margin: 0,
+    lineHeight: '1.3'
+  };
+
   if (loading) {
-    return <div>📚 Loading...</div>;
+    return (
+
+    <div style={badgeStyle}>
+      <div style={mainTextStyle}>📚 Loading...</div>
+    </div>
+    );
   }
 
   if (error) {
-    return <div>📚 Currently Reading: {bookTitle}</div>;
+    return (
+        <div style={badgeStyle}>
+          <div style={mainTextStyle}>📚 Currently Reading: {bookTitle}</div>
+        </div>
+      );
   }
 
   if (!bookData) {
-    return <div>📚 Book not found: {bookTitle}</div>;
+    return (
+        <div style={badgeStyle}>
+          <div style={mainTextStyle}>📚 Book not found: {bookTitle}</div>
+        </div>
+      );
   }
 
   const author = bookData.author_name ? bookData.author_name[0] : 'Unknown Author';
@@ -56,20 +112,29 @@ export default function CurrentlyReadingBadge({ bookTitle }) {
     ? `https://covers.openlibrary.org/b/id/${bookData.cover_i}-M.jpg`
     : null;
 
-    console.log(bookData);
+    
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={badgeStyle}>
           {coverUrl && (
             <img 
               src={coverUrl} 
               alt={`Cover of ${bookData.title}`}
-              style={{ width: '60px', height: 'auto' }}
+              style={coverStyle}
             />
           )}
-          <div>
-        📚 Currently Reading: {bookData.title} by {author}
-        {publishYear && <div style={{ fontSize: '0.9em', opacity: 0.8 }}>📅 First published {publishYear}</div>}
-      </div>
+          <div style={textContainerStyle}>
+            <div style={mainTextStyle}>
+              📚 Currently Reading: {bookData.title}
+            </div>
+            <div style={subtextStyle}>
+              by {author}
+            </div>
+            {publishYear && (
+              <div style={subtextStyle}>
+                📅 First published {publishYear}
+              </div>
+            )}
+          </div>
         </div>
       );
 }
