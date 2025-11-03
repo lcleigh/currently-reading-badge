@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/currently-reading-badge/static/css/main.e6c13ad2.css",
+    "main.js": "/currently-reading-badge/static/js/main.49dac5de.js",
+    "index.html": "/currently-reading-badge/index.html",
+    "main.e6c13ad2.css.map": "/currently-reading-badge/static/css/main.e6c13ad2.css.map",
+    "main.49dac5de.js.map": "/currently-reading-badge/static/js/main.49dac5de.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.49dac5de.js"
+  ]
+}
