@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { themes } from "../themes/badgeColourThemes";
 
-export default function CurrentlyReadingBadge({ bookTitle }) {
+export default function CurrentlyReadingBadge({ bookTitle, theme }) {
   const [bookData, setBookData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const currentColourTheme = themes.christmas;
+  const currentColourTheme = themes[theme] || themes.neutral;
 
   useEffect(() => {
     const fetchBook = async () => {
