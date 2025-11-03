@@ -12,5 +12,12 @@ export const themes = {
         text: '#2d5016',
         subtext: '#4a7c2c',
         accent: '#c74444'
-      }
+    },
+    dark: {
+        background: '#1e1e1e',
+        border: '#333333',
+        text: '#f5f5f5',
+        subtext: '#aaaaaa',
+        accent: '#bb86fc',
+    }
   };
