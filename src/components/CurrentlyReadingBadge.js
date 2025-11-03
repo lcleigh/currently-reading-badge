@@ -6,7 +6,7 @@ export default function CurrentlyReadingBadge({ bookTitle }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const currentColourTheme = themes.neutral;
+  const currentColourTheme = themes.christmas;
 
   useEffect(() => {
     const fetchBook = async () => {
