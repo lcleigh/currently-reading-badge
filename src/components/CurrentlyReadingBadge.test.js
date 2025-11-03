@@ -29,16 +29,17 @@ describe("CurrentlyReadingBadge", () => {
         },
       ],
     };
-
+  
     fetch.mockResolvedValueOnce({
       ok: true,
       json: async () => mockResponse,
     });
-
+  
     render(<CurrentlyReadingBadge bookTitle="Pride and Prejudice" />);
-
+  
     await waitFor(() => {
-      expect(screen.getByText(/Currently Reading: Pride and Prejudice by Jane Austen/i)).toBeInTheDocument();
+      expect(screen.getByText(/Currently Reading: Pride and Prejudice/i)).toBeInTheDocument();
+      expect(screen.getByText(/by Jane Austen/i)).toBeInTheDocument();
       expect(screen.getByText(/First published 1813/i)).toBeInTheDocument();
     });
   });
@@ -61,7 +62,8 @@ describe("CurrentlyReadingBadge", () => {
     render(<CurrentlyReadingBadge bookTitle="Mystery Book" />);
 
     await waitFor(() => {
-      expect(screen.getByText(/Currently Reading: Mystery Book by Unknown Author/i)).toBeInTheDocument();
+        expect(screen.getByText(/Currently Reading: Mystery Book/i)).toBeInTheDocument();
+        expect(screen.getByText(/by Unknown Author/i)).toBeInTheDocument();
     });
   });
 
@@ -112,8 +114,9 @@ describe("CurrentlyReadingBadge", () => {
     render(<CurrentlyReadingBadge bookTitle="Mystery Book" />);
 
     await waitFor(() => {
-      expect(screen.getByText(/Currently Reading: Mystery Book by Unknown Author/i)).toBeInTheDocument();
-      expect(screen.queryByText(/First published/i)).not.toBeInTheDocument();
+        expect(screen.getByText(/Currently Reading: Mystery Book/i)).toBeInTheDocument();
+        expect(screen.getByText(/by Unknown Author/i)).toBeInTheDocument();
+        expect(screen.queryByText(/First published/i)).not.toBeInTheDocument();
     });
   });
 
@@ -133,10 +136,16 @@ describe("CurrentlyReadingBadge", () => {
     render(<CurrentlyReadingBadge bookTitle={mockBook.title} />);
   
     const titleText = await screen.findByText(
-      new RegExp(`Currently Reading: ${mockBook.title} by ${mockBook.author_name[0]}`, "i")
+      new RegExp(`Currently Reading: ${mockBook.title}`, "i")
     );
+
+    const authorText = await screen.findByText(
+        new RegExp(`by ${mockBook.author_name[0]}`, "i")
+      );
   
     expect(titleText).toBeInTheDocument();
+    expect(authorText).toBeInTheDocument();
+
   });
 
   test("displays book cover when available", async () => {
