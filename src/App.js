@@ -3,7 +3,7 @@ import CurrentlyReadingBadge from "./components/CurrentlyReadingBadge";
 import BookSearch from "./components/BookSearch";
 
 function App() {
-  const [bookTitle, setBookTitle] = useState("The Gruffalo");
+  const [bookTitle, setBookTitle] = useState("The Nutcracker");
   return (
     <div style={{ padding: "20px" }}>
       <h1>My Reading Tracker</h1>

@@ -92,30 +92,6 @@ describe("CurrentlyReadingBadge", () => {
     });
   });
 
-  test("uses default book title when no prop provided", async () => {
-    const mockResponse = {
-      docs: [
-        {
-          title: "Pride and Prejudice",
-          author_name: ["Jane Austen"],
-          cover_i: 12345,
-          first_publish_year: 1813,
-        },
-      ],
-    };
-
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockResponse,
-    });
-
-    render(<CurrentlyReadingBadge />);
-
-    await waitFor(() => {
-      expect(screen.getByText(/Currently Reading: Pride and Prejudice by Jane Austen/i)).toBeInTheDocument();
-    });
-  });
-
   test("handles book without publication year", async () => {
     const mockResponse = {
       docs: [
@@ -139,6 +115,28 @@ describe("CurrentlyReadingBadge", () => {
       expect(screen.getByText(/Currently Reading: Mystery Book by Unknown Author/i)).toBeInTheDocument();
       expect(screen.queryByText(/First published/i)).not.toBeInTheDocument();
     });
+  });
+
+  test("renders the correct book info for a given title", async () => {
+    const mockBook = {
+      title: "Jane Eyre",
+      author_name: ["Charlotte Brontë"],
+      cover_i: 67890,
+      first_publish_year: 1847,
+    };
+  
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ docs: [mockBook] }),
+    });
+  
+    render(<CurrentlyReadingBadge bookTitle={mockBook.title} />);
+  
+    const titleText = await screen.findByText(
+      new RegExp(`Currently Reading: ${mockBook.title} by ${mockBook.author_name[0]}`, "i")
+    );
+  
+    expect(titleText).toBeInTheDocument();
   });
 
   test("displays book cover when available", async () => {
